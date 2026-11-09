@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Study Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f5fa;--card:#fff;--fg:#151a2d;--mut:#7b8299;--line:#e8eaf2;--chip:#e9ecf5;--sh:0 1px 2px rgba(20,26,46,.05),0 10px 28px rgba(20,26,46,.07)}
+@media(prefers-color-scheme:dark){:root{--bg:#0a0d19;--card:#141a2e;--fg:#eef0f8;--mut:#8f97b3;--line:#232a46;--chip:#1c2340;--sh:0 10px 28px rgba(0,0,0,.35)}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.w{max-width:760px;margin:0 auto;padding:22px 16px 64px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+h1{margin:0;font-size:26px;font-weight:800;letter-spacing:-.6px}
+.top input{width:120px;border:0;border-bottom:2px solid var(--line);background:transparent;color:var(--fg);font:inherit;font-size:15px;padding:4px 2px;outline:none;text-align:right}
+.hero{border-radius:24px;padding:24px;color:#fff;background:linear-gradient(135deg,#6366f1,#8b5cf6 55%,#ec4899);box-shadow:0 14px 34px rgba(99,102,241,.32);margin-bottom:18px}
+.hero b{display:block;font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1}
+.hero span{display:block;margin:8px 0 16px;opacity:.9;font-size:15px}
+.hb{height:10px;border-radius:9px;background:rgba(255,255,255,.28);overflow:hidden}
+.hb i{display:block;height:100%;width:0;background:#fff;border-radius:9px;transition:width .5s}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:5px;background:var(--chip);border-radius:16px;margin-bottom:16px}
+.seg button{border:0;background:transparent;color:var(--mut);font:inherit;font-weight:700;font-size:14px;padding:9px 2px;border-radius:12px;cursor:pointer;line-height:1.2}
+.seg small{display:block;font-weight:600;font-size:11px;opacity:.8}
+.seg .on{background:var(--card);color:var(--fg);box-shadow:var(--sh)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 14px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);color:var(--fg);font:inherit;font-weight:600;font-size:14px;padding:8px 14px;border-radius:99px;cursor:pointer}
+.chips i{width:9px;height:9px;border-radius:50%;background:var(--a)}
+.chips .on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.ctl{display:flex;gap:12px;align-items:center;margin-bottom:18px}
+.ctl input[type=search]{flex:1;min-width:0;font:inherit;font-size:15px;padding:12px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--fg);outline:none}
+.sw{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--mut);white-space:nowrap}
+.sw input{width:20px;height:20px;accent-color:#8b5cf6}
+.sc{background:color-mix(in srgb, var(--a) 10%, var(--card));border:1.5px solid color-mix(in srgb, var(--a) 35%, transparent);border-radius:20px;box-shadow:var(--sh);margin-bottom:16px;overflow:hidden}
+.sh{display:flex;align-items:center;gap:12px;padding:18px 18px;cursor:pointer;user-select:none;background:color-mix(in srgb, var(--a) 12%, transparent)}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--a);flex:none}
+.sh b{font-size:18px;font-weight:800;letter-spacing:-.2px;color:color-mix(in srgb, var(--a) 70%, var(--fg))}
+.cn{color:var(--mut);font-size:13px;font-weight:600}
+.bar{margin-left:auto;width:70px;height:6px;border-radius:6px;background:color-mix(in srgb, var(--a) 20%, var(--chip));overflow:hidden}
+.bar u{display:block;height:100%;background:var(--a);border-radius:6px;transition:width .4s}
+.chev{width:9px;height:9px;border-right:2.5px solid var(--mut);border-bottom:2.5px solid var(--mut);transform:rotate(45deg);margin:-3px 4px 0 2px;transition:transform .2s;flex:none}
+.sc.cl .chev{transform:rotate(-45deg);margin-top:0}
+.sc.cl .rows{display:none}
+.g{padding:12px 18px 6px;font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--a);border-top:1px solid color-mix(in srgb, var(--a) 20%, var(--line))}
+.r{display:flex;align-items:flex-start;gap:14px;padding:15px 18px;border-top:1px solid color-mix(in srgb, var(--a) 15%, var(--line));cursor:pointer}
+.g+.r{border-top:0}
+.r input{appearance:none;-webkit-appearance:none;flex:none;width:26px;height:26px;margin:0;border:2px solid var(--mut);border-radius:50%;cursor:pointer;transition:background .15s,border-color .15s,transform .1s;order:3;margin-left:auto;align-self:center}
+.r input:active{transform:scale(.88)}
+.r input:checked{background:var(--a) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;border-color:var(--a)}
+.n{flex:none;width:26px;height:26px;border-radius:9px;background:color-mix(in srgb, var(--a) 18%, var(--chip));color:color-mix(in srgb, var(--a) 80%, var(--fg));font-size:12px;font-weight:700;display:grid;place-items:center;margin-top:1px}
+.t{font-size:16.5px;font-weight:600;line-height:1.4;padding-top:2px}
+.t small{display:block;margin-top:3px;font-size:13px;font-weight:500;color:var(--mut)}
+.r.d .t{color:var(--mut);text-decoration:line-through;text-decoration-color:var(--line)}
+.r.d .n{background:var(--a);color:#fff}
+.em{text-align:center;color:var(--mut);padding:40px 0}
+.ft{display:flex;justify-content:space-between;align-items:center;color:var(--mut);font-size:13px;margin-top:20px}
+.ft button{font:inherit;font-size:13px;font-weight:600;color:var(--mut);background:transparent;border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer}
+</style></head><body><div class="w">
+<div class="top"><h1>Study Tracker</h1><input id="nm" placeholder="Your name" autocomplete="off"></div>
+<div class="hero"><b id="pct">0%</b><span id="sub"></span><div class="hb"><i id="hb"></i></div></div>
+<div class="seg" id="seg"></div>
+<div class="chips" id="chips"></div>
+<div class="ctl"><input type="search" id="q" placeholder="Search..."><label class="sw"><input type="checkbox" id="hd">Hide done</label></div>
+<div id="list"></div>
+<div class="ft"><span id="ft"></span><button id="rs">Reset progress</button></div>
+</div>
+<noscript>Please open this page in a browser that supports JavaScript.</noscript>
+<script>
+const D={
+"Anatomy":["Anatomy Terminology","Skeletal system","Joints","Introduction to nervous system","Anatomical divisions of nervous system","Digestive system","Muscle & fascia","Respiratory system","CVS","Urinary system","Lymphatic system","Neck vessels","Scalp & face I (Soft tissue)","Scalp & face II (Blood supply)","Scalp & face III (Nerve supply)"],
+"Embryology":["Male & female genital systems","Gametogenesis","Female cycles","First week of development","Second week of development","Third week of development","Folding & neural tube development","Fetal membranes I (amnion-yolk sac)","Fetal membranes II (chorion-U. cord)","Placenta & twins"],
+"Physiology":["Functional organization of human body & fluids","Transport thorough cell membrane","Intercellular connections","Functional divisions of nervous system","General characters of ANS","Sympathetic NS to head & neck & disorders","Sympathetic supply to thorax, abdomen, pelvis","Parasympathetic supply to head, thorax, abdomen","Higher control of ANS functions","Functions of ANS under different conditions","Cholinergic transmission & receptors","Adrenergic transmission & receptors","Equilibrium potential & Nernst equation","Ionic basis & recording of action potentials","Nerve fiber changes, types & excitability","Synaptic transmission & postsynaptic potentials","Physics of blood flow & vascular compliance","Fluid filtration dynamics & interstitial drainage"],
+"Histology":["Cell Structure 1 (Cell Membrane & Mitochondria)","Cell Structure 2 (Ribosomes, ER, Golgi apparatus & Lysosomes)","Cell Structure 3 (Cytoskeleton)","Cell Structure 4 (Cell Inclusions & Nucleus)","Cell Cycle & Cell Division","Karyotyping-Structure & Classification of Chromosomes","Epithelium (1)","Epithelium (2)","Connective Tissue (1)","Connective Tissue (2)","Nervous Tissue (1)","Nervous Tissue (2)","Skin (1)","Skin (2)"],
+"Biochemistry":["Monosaccharide","Disaccharide and derived sugars","Polysaccharide","Fatty acid and simple lipid","Derived lipid","Compound lipid","Amino acids","Protein classifications","Biochemistry of enzymes 1","Biochemistry of enzymes 2","Biomedical significance of enzymes","Protein structure","Protein folding and misfolding"],
+"Genetics":["Nucleic acids","DNA packaging","Principle of heredity and family pedigree","DNA replication","Transcription","Post-transcription modification","Translation","Regulation of protein synthesis and Post-translational modification","DNA repair","DNA mutations","DNA mutations and cancer genetics"],
+"PCM":["Introduction to professionalism","E-professionalism & telemedicine","Reflection and self-regulation","Social accountability & Study wellbeing","Introduction to medical ethics","physician’s duties and rights","Informed consent","Confidentiality","Successful communication","physician’s - patient communication","Team work & Team composition","Conflict management","Communication in cultural diversity","Dealing with difficult personalities"]};
+const X={
+Anatomy:["#ef4444",[["Online Cases",["Fracture leg bone & shoulder dislocation|Skeletal system & joints","Brain tumor & Muscle rupture|Nervous divisions & muscle","Cancer colon|Digestive system","Azoospermia & Loin pain|Genital & Urinary systems","Massive hemorrhage & Foreign body aspiration|CVS & Respiratory system","Scalp wound & Slurred speech|Scalp & Great neck vessels","Trigeminal neuralgia & Dangerous triangle of face|Face & scalp"]],["Practical",["Axial skeleton & Mandible + features of vertebrae","Appendicular skeleton 1 (Upper Limb)","Appendicular skeleton 2 (Lower Limb)","Nervous & Digestive Systems","Genitourinary System","Respiratory & Cardiovascular Systems","Skull 1","Skull 2","Scalp","Face"]]]],
+Embryology:["#f472b6",[["Online Cases",["Placenta Previa|2nd week of pregnancy","Conjoined twins|Twins"]],["Practical",["Ovarian follicles, mature sperm, blastocyst formation, implantation","Gastrulation, Folding and neural tube formation","Features of placenta, umbilical cord & twins"]],["CBL",["Abortion"]]]],
+Physiology:["#3b82f6",[["Online Cases",["Dehydration|Functional organization of the human body","Gastric ulcer|Transport through the cell membrane","Heart failure|Transport through the cell membrane","Horner's syndrome|Sympathetic NS to head and neck","Pheochromocytoma|Sympathetic supply to thorax, abdomen, pelvis","Primary focal hyperhidrosis|Sympathetic supply to thorax, abdomen, pelvis","Organophosphates poisoning|Cholinergic transmission","Myasthenia gravis|Cholinergic transmission","Raynaud's disease|Adrenergic transmission","Periodic paralysis|Equilibrium potential","Multiple sclerosis|Ionic basis & action potentials","Nerve block|Changes in nerve fibers during action potentials","Edema|Dynamics of filtration of fluids"]],["Practical",["Calculation of body fluids","Types of physiological solutions and how to prepare","Calculation of osmolarity and change in cell volume","Fight flight response and biofeedback by Biopac","Modulation of autonomic receptors (Virtual labs)","Types of stimuli and gradation of electric response (Virtual labs)","Ion channels and nerve block by Virtual labs","Nerve conduction velocity by Biopac 1","Nerve conduction velocity by Biopac 2"]],["CBL",["Diabetic Poly Neuropathy"]],["SDL",["COVID-19 Protective Measures Course (Incision Academy)"]]]],
+Histology:["#fbbf24",[["Online Cases",["Gaucher's disease|Cell Structure 2","Kartagener's syndrome|Cell Structure 3 (Cytoskeleton)","Turner's syndrome|Cell Cycle, Cell Division & Chromosomes","Tongue cancer|Epithelium","Hypertrophic skin scar|Connective tissue","Multiple sclerosis|Nervous tissue","Psoriasis|Skin"]],["Practical",["Microtechniques & Microscopy","Cell Structure (Membranous & Non-Membranous Organelles)","Nucleus & Cell division","Karyotyping & Chromosomal abnormalities","Epithelium","Connective tissue","Nervous tissue","Skin"]]]],
+Biochemistry:["#22c55e",[["Online Cases",["Type 2 Diabetes Mellitus|Monosaccharides","Lactose intolerance|Disaccharide","Constipation|Disaccharide and polysaccharides","Atherosclerosis|Compound lipids","Niemann Pick disease|Compound lipid","Neonatal Respiratory Distress Syndrome|Compound lipids","Acute hepatitis|Biomedical significance of enzymes","Alzheimer's disease|Protein folding"]],["Practical",["Lab safety","Sampling","Types of solutions and osmolarity","Glucose detection in body fluid","Protein detection in body fluid","Clinical application of factors affecting enzyme action (starch amylase)"]]]],
+Genetics:["#fb923c",[["Online Cases",["Cystic fibrosis|Principles of heredity & family pedigree","Sickle cell anaemia|Principles of heredity","Anticancer therapy|DNA replication","End replication problem|DNA replication","Diphtheria|Regulation of protein synthesis","Familial Mediterranean Fever|Mutation","β-Thalassemia|Mutation","Hepatocellular carcinoma with chronic hepatitis C|Mutation"]],["Practical",["Pipetting","DNA extraction","PCR","Gel electrophoresis","Overview on molecular lab instrumentation"]],["CBL",["Down Syndrome"]],["Assignment",["Draw and Label a Diagram of Spinal Ganglia"]]]],
+PCM:["#94a3b8",[]]};
+
+const T=[["Lectures","Lectures",["Lectures"]],["Online Cases","Cases",["Online Cases"]],["Practical","Practical",["Practical"]],["CBL & More","More",["CBL","SDL","Assignment"]]];
+const SEC=Object.keys(D).map(s=>({s,c:X[s][0],g:[["Lectures",D[s]],...X[s][1]]}));
+const K="tracker-v3";let S={},M={t:0,f:"All",hd:0,cl:{},nm:""};
+try{M=Object.assign(M,JSON.parse(localStorage.getItem(K+"m")||"{}"));S=JSON.parse(localStorage.getItem(K)||"{}")}catch(e){}
+const sv=()=>{try{localStorage.setItem(K,JSON.stringify(S));localStorage.setItem(K+"m",JSON.stringify(M))}catch(e){}};
+const $=i=>document.getElementById(i),gs=(t,o)=>o.g.filter(x=>T[t][2].includes(x[0])),key=(s,g,i)=>s+"|"+g+"|"+i;
+function cnt(t,only){let n=0,d=0;for(const o of SEC){if(only&&o.s!==only)continue;for(const[g,l]of gs(t,o))l.forEach((_,i)=>{n++;if(S[key(o.s,g,i)])d++})}return[d,n]}
+function render(){const t=M.t,q=$("q").value.trim().toLowerCase(),[d,n]=cnt(t),p=n?Math.round(d/n*100):0;
+$("pct").textContent=p+"%";$("sub").textContent=d+" of "+n+" "+T[t][1].toLowerCase()+" done";$("hb").style.width=p+"%";
+$("seg").innerHTML=T.map((x,i)=>{const[a,b]=cnt(i);return`<button class="${i==t?"on":""}" data-i="${i}">${x[1]}<small>${b?Math.round(a/b*100):0}%</small></button>`}).join("");
+const subs=SEC.filter(o=>gs(t,o).length);if(M.f!=="All"&&!subs.some(o=>o.s===M.f))M.f="All";
+$("chips").innerHTML=["All",...subs.map(o=>o.s)].map(x=>{const o=SEC.find(z=>z.s===x);return`<button class="${M.f==x?"on":""}" data-f="${x}"${o?` style="--a:${o.c}"`:""}>${o?"<i></i>":""}${x}</button>`}).join("");
+let h="";
+for(const o of subs){if(M.f!=="All"&&M.f!==o.s)continue;const[sd,sn]=cnt(t,o.s),ck=t+"|"+o.s,multi=T[t][2].length>1;let rows="",shown=0;
+for(const[g,l]of gs(t,o)){let r="";l.forEach((x,i)=>{const[a,b]=x.split("|"),k=key(o.s,g,i),dn=!!S[k];if(q&&!x.toLowerCase().includes(q))return;if(M.hd&&dn)return;shown++;
+r+=`<label class="r${dn?" d":""}"><span class="n">${i+1}</span><span class="t">${a}${b?`<small>Case on ${b}</small>`:""}</span><input type="checkbox" data-k="${k}"${dn?" checked":""}></label>`});
+if(r)rows+=(multi?`<div class="g">${g}</div>`:"")+r}
+if(!shown)continue;
+h+=`<section class="sc${M.cl[ck]&&!q?" cl":""}" style="--a:${o.c}"><div class="sh" data-c="${ck}"><i class="dot"></i><b>${o.s}</b><span class="cn">${sd}/${sn}</span><div class="bar"><u style="width:${sn?sd/sn*100:0}%"></u></div><span class="chev"></span></div><div class="rows">${rows}</div></section>`}
+$("list").innerHTML=h||'<div class="em">Nothing to show</div>';
+let all=0;T.forEach((_,i)=>all+=cnt(i)[1]);$("ft").textContent=all+" items · "+SEC.length+" subjects"}
+$("list").addEventListener("change",e=>{const k=e.target.dataset.k;if(!k)return;if(e.target.checked)S[k]=1;else delete S[k];sv();render()});
+$("list").addEventListener("click",e=>{const h=e.target.closest(".sh");if(!h)return;M.cl[h.dataset.c]=!M.cl[h.dataset.c];sv();render()});
+$("seg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;M.t=+b.dataset.i;M.f="All";sv();render()});
+$("chips").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;M.f=b.dataset.f;sv();render()});
+$("q").addEventListener("input",render);
+$("hd").checked=!!M.hd;$("hd").addEventListener("change",e=>{M.hd=e.target.checked?1:0;sv();render()});
+$("nm").value=M.nm||"";$("nm").addEventListener("input",e=>{M.nm=e.target.value;sv()});
+$("rs").onclick=()=>{if(confirm("Reset all progress?")){S={};sv();render()}};
+render();
+</script></body></html>
