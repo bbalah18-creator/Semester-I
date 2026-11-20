@@ -74,17 +74,17 @@ const D={
 "Biochemistry":["Monosaccharide","Disaccharide and derived sugars","Polysaccharide","Fatty acid and simple lipid","Derived lipid","Compound lipid","Amino acids","Protein classifications","Biochemistry of enzymes 1","Biochemistry of enzymes 2","Biomedical significance of enzymes","Protein structure","Protein folding and misfolding"],
 "Genetics":["Nucleic acids","DNA packaging","Principle of heredity and family pedigree","DNA replication","Transcription","Post-transcription modification","Translation","Regulation of protein synthesis and Post-translational modification","DNA repair","DNA mutations","DNA mutations and cancer genetics"],
 "PCM":[
-  "Introduction to professionalism",
-  "Social accountability & Study wellbeing",
-  "Reflection and self-regulation",
+  "Introduction to Professionalism",
+  "Social Accountability & Study Wellbeing",
+  "Reflection and Regulation",
   "Introduction to medical ethics",
-  "physician’s duties and rights",
-  "Confidentiality",
+  "Physician’s duties and rights",
   "Informed consent",
+  "Professional Secrecy and Confidentiality",
   "Physician-Patient Communication",
   "E-professionalism & telemedicine",
+  "Team work & Team composition"
   "Successful communication",
-  "Team work & Team composition",
   "Conflict management",
   "Communication in cultural diversity",
   "Dealing with difficult personalities"
@@ -96,7 +96,7 @@ Embryology:["#f472b6",[["Online Cases",["Placenta Previa|2nd week of pregnancy",
 Physiology:["#3b82f6",[["Online Cases",["Dehydration|Functional organization of the human body","Gastric ulcer|Transport through the cell membrane","Heart failure|Transport through the cell membrane","Horner's syndrome|Sympathetic NS to head and neck","Pheochromocytoma|Sympathetic supply to thorax, abdomen, pelvis","Primary focal hyperhidrosis|Sympathetic supply to thorax, abdomen, pelvis","Organophosphates poisoning|Cholinergic transmission","Myasthenia gravis|Cholinergic transmission","Raynaud's disease|Adrenergic transmission","Periodic paralysis|Equilibrium potential","Multiple sclerosis|Ionic basis & action potentials","Nerve block|Changes in nerve fibers during action potentials","Edema|Dynamics of filtration of fluids"]],["Practical",["Calculation of body fluids","Types of physiological solutions and how to prepare","Calculation of osmolarity and change in cell volume","Fight flight response and biofeedback by Biopac","Modulation of autonomic receptors (Virtual labs)","Types of stimuli and gradation of electric response (Virtual labs)","Ion channels and nerve block by Virtual labs","Nerve conduction velocity by Biopac 1","Nerve conduction velocity by Biopac 2"]],["CBL",["Diabetic Poly Neuropathy"]],["SDL",["COVID-19 Protective Measures Course (Incision Academy)"]]]],
 Histology:["#fbbf24",[["Online Cases",["Gaucher's disease|Cell Structure 2","Kartagener's syndrome|Cell Structure 3 (Cytoskeleton)","Turner's syndrome|Cell Cycle, Cell Division & Chromosomes","Tongue cancer|Epithelium","Hypertrophic skin scar|Connective tissue","Multiple sclerosis|Nervous tissue","Psoriasis|Skin"]],["Practical",["Microtechniques & Microscopy","Cell Structure (Membranous & Non-Membranous Organelles)","Nucleus & Cell division","Karyotyping & Chromosomal abnormalities","Epithelium","Connective tissue","Nervous tissue","Skin"]]]],
 Biochemistry:["#22c55e",[["Online Cases",["Type 2 Diabetes Mellitus|Monosaccharides","Lactose intolerance|Disaccharide","Constipation|Disaccharide and polysaccharides","Atherosclerosis|Compound lipids","Niemann Pick disease|Compound lipid","Neonatal Respiratory Distress Syndrome|Compound lipids","Acute hepatitis|Biomedical significance of enzymes","Alzheimer's disease|Protein folding"]],["Practical",["Lab safety","Sampling","Types of solutions and osmolarity","Glucose detection in body fluid","Protein detection in body fluid","Clinical application of factors affecting enzyme action (starch amylase)"]]]],
-Genetics:["#fb923c",[["Online Cases",["Cystic fibrosis|Principles of heredity & family pedigree","Sickle cell anaemia|Principles of heredity","Anticancer therapy|DNA replication","End replication problem|DNA replication","Diphtheria|Regulation of protein synthesis","Familial Mediterranean Fever|Mutation","β-Thalassemia|Mutation","Hepatocellular carcinoma with chronic hepatitis C|Mutation"]],["Practical",["Pipetting","DNA extraction","PCR","Gel electrophoresis","Overview on molecular lab instrumentation"]],["CBL",["Down Syndrome"]],["Assignment",["Draw and Label a Diagram of Spinal Ganglia"]]]],
+Genetics:["#fb923c",[["Online Cases",["Cystic fibrosis|Principles of heredity & family pedigree","Sickle cell anaemia|Principles of heredity","Anticancer therapy|DNA replication","End replication problem|DNA replication","Diphtheria|Regulation of protein synthesis","Familial Mediterranean Fever|Mutation","β-Thalassemia|Mutation","Hepatocellular carcinoma with chronic hepatitis C|Mutation"]],["Practical",["Pipetting","DNA extraction","PCR","Gel electrophoresis","Overview on molecular lab instrumentation"]],["CBL",["Down Syndrome"]],["Assignment","Draw and Label a Diagram of Spinal Ganglia"]]]],
 PCM:["#94a3b8",[]]};
 
 const T=[["Lectures","Lectures",["Lectures"]],["Online Cases","Cases",["Online Cases"]],["Practical","Practical",["Practical"]],["CBL & More","More",["CBL","SDL","Assignment"]]];
@@ -117,7 +117,7 @@ for(const[g,l]of gs(t,o)){let r="";l.forEach((x,i)=>{const[a,b]=x.split("|"),k=k
 r+=`<label class="r${dn?" d":""}"><span class="n">${i+1}</span><span class="t">${a}${b?`<small>Case on ${b}</small>`:""}</span><input type="checkbox" data-k="${k}"${dn?" checked":""}></label>`});
 if(r)rows+=(multi?`<div class="g">${g}</div>`:"")+r}
 if(!shown)continue;
-h+=`<section class="sc${M.cl[ck]&&!q?" cl":""}" style="--a:${o.c}"><div class="sh" data-c="${ck}"><i class="dot"></i><b>${o.s}</b><span class="cn">${sd}/${sn}</span><div class="bar"><u style="width:${sn?sd/sn*100:0}%"></u></div><span class="chev"></span></div><div class="rows">${rows}</div></section>`}
+h+=`<section class="sc${M.cl[ck]&&!q?" cl":""}" style="--a:${o.c}"><div class="sh" data-c="${ck}"><i class="dot"></i><b>${o.s}</b><span class="cn">${sd}/${sn}</span><div class="bar"><u style="width:${sn?sd/sn*100:0}%"></u></div><span class="chev"></span></div><div class="row">${rows}</div></section>`}
 $("list").innerHTML=h||'<div class="em">Nothing to show</div>';
 let all=0;T.forEach((_,i)=>all+=cnt(i)[1]);$("ft").textContent=all+" items · "+SEC.length+" subjects"}
 $("list").addEventListener("change",e=>{const k=e.target.dataset.k;if(!k)return;if(e.target.checked)S[k]=1;else delete S[k];sv();render()});
